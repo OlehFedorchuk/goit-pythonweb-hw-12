@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Application modules &#8212; Rest API  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=279e0f84" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Contacts API Documentation" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Contacts API Documentation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Rest API  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Application modules</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="application-modules">
+<h1>Application modules<a class="headerlink" href="#application-modules" title="Link to this heading">¶</a></h1>
+<section id="module-app.main">
+<span id="main-application"></span><h2>Main application<a class="headerlink" href="#module-app.main" title="Link to this heading">¶</a></h2>
+<p>Main FastAPI application module.</p>
+<p>This module initializes the FastAPI application, configures middleware,
+rate limiting, database initialization, and registers all routers.</p>
+<dl class="simple">
+<dt>Features:</dt><dd><ul class="simple">
+<li><p>CORS configuration</p></li>
+<li><p>Rate limiting (SlowAPI)</p></li>
+<li><p>Database initialization (SQLAlchemy)</p></li>
+<li><p>Router registration (auth, users, contacts)</p></li>
+</ul>
+</dd>
+<dt>Modules:</dt><dd><p>app.routes.auth
+app.routes.users
+app.routes.contacts</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.main.init_db">
+<span class="sig-prename descclassname"><span class="pre">app.main.</span></span><span class="sig-name descname"><span class="pre">init_db</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.main.init_db" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize database tables.</p>
+<p>This function creates all tables defined in SQLAlchemy models
+using the configured database engine.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.main.lifespan">
+<span class="sig-prename descclassname"><span class="pre">app.main.</span></span><span class="sig-name descname"><span class="pre">lifespan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FastAPI</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.main.lifespan" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.main.root">
+<span class="sig-prename descclassname"><span class="pre">app.main.</span></span><span class="sig-name descname"><span class="pre">root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.main.root" title="Link to this definition">¶</a></dt>
+<dd><p>Health check endpoint.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>dict: Simple API status message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="routes">
+<h2>Routes<a class="headerlink" href="#routes" title="Link to this heading">¶</a></h2>
+<section id="module-app.routes.auth">
+<span id="auth-routes"></span><h3>Auth routes<a class="headerlink" href="#module-app.routes.auth" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routes.auth.login">
+<span class="sig-prename descclassname"><span class="pre">app.routes.auth.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">OAuth2PasswordRequestForm</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(NoneType)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.routes.auth.login" title="Link to this definition">¶</a></dt>
+<dd><p>Authenticate user and return JWT access token.</p>
+<p>This endpoint:
+- Validates user credentials
+- Checks if the account is verified
+- Generates a JWT access token</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>body (OAuth2PasswordRequestForm): Login form data (username=email, password).
+db (Session): Database session dependency.</p>
+</dd>
+<dt>Raises:</dt><dd><dl class="simple">
+<dt>HTTPException:</dt><dd><ul class="simple">
+<li><p>401 if credentials are invalid</p></li>
+<li><p>403 if email is not verified</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>dict: JWT access token and token type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routes.auth.register">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.routes.auth.</span></span><span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.schemas_user.UserCreate" title="app.schemas_user.UserCreate"><span class="pre">UserCreate</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_tasks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BackgroundTasks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.routes.auth.register" title="Link to this definition">¶</a></dt>
+<dd><p>Register a new user account.</p>
+<p>This endpoint:
+- Checks if a user with the same email or username already exists
+- Hashes the password securely
+- Creates a new user in the database
+- Generates an email verification token
+- Sends a verification email in the background</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>body (UserCreate): User registration data (email, username, password).
+background_tasks (BackgroundTasks): FastAPI background task manager.
+request (Request): HTTP request object (used to get base URL).
+db (Session): Database session dependency.</p>
+</dd>
+<dt>Raises:</dt><dd><dl class="simple">
+<dt>HTTPException:</dt><dd><ul class="simple">
+<li><p>409 if email or username already exists</p></li>
+<li><p>409 if database integrity constraint is violated</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Success message indicating that verification email was sent.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routes.auth.request_password_reset">
+<span class="sig-prename descclassname"><span class="pre">app.routes.auth.</span></span><span class="sig-name descname"><span class="pre">request_password_reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.routes.auth.request_password_reset" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routes.auth.reset_password">
+<span class="sig-prename descclassname"><span class="pre">app.routes.auth.</span></span><span class="sig-name descname"><span class="pre">reset_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.schemas.ResetPasswordRequest" title="app.schemas.ResetPasswordRequest"><span class="pre">ResetPasswordRequest</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.routes.auth.reset_password" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routes.auth.verify_email">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.routes.auth.</span></span><span class="sig-name descname"><span class="pre">verify_email</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.routes.auth.verify_email" title="Link to this definition">¶</a></dt>
+<dd><p>Verify a user’s email address using a token.</p>
+<p>This endpoint:
+- Decodes and validates the email verification token
+- Finds the corresponding user
+- Marks the user as verified if not already verified</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>token (str): Email verification token.
+db (Session): Database session dependency.</p>
+</dd>
+<dt>Raises:</dt><dd><dl class="simple">
+<dt>HTTPException:</dt><dd><ul class="simple">
+<li><p>400 if token is invalid or expired</p></li>
+<li><p>400 if user is not found</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Message confirming verification status.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-app.routes.users">
+<span id="users-routes"></span><h3>Users routes<a class="headerlink" href="#module-app.routes.users" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routes.users.me">
+<span class="sig-prename descclassname"><span class="pre">app.routes.users.</span></span><span class="sig-name descname"><span class="pre">me</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.models_user.User" title="app.models_user.User"><span class="pre">User</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_user)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.routes.users.me" title="Link to this definition">¶</a></dt>
+<dd><p>Get the currently authenticated user’s profile.</p>
+<p>This endpoint returns the user data for the authenticated user.
+It is rate-limited to 5 requests per minute per IP address.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>request (Request): Incoming HTTP request (used for rate limiting).
+current_user (User): Currently authenticated user.</p>
+</dd>
+<dt>Returns:</dt><dd><p>User: The authenticated user’s data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routes.users.update_avatar">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.routes.users.</span></span><span class="sig-name descname"><span class="pre">update_avatar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UploadFile</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">File(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.models_user.User" title="app.models_user.User"><span class="pre">User</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_admin_user)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.routes.users.update_avatar" title="Link to this definition">¶</a></dt>
+<dd><p>Update the admin user’s avatar image.</p>
+<p>Only users with admin role can upload/change their avatar.
+Uploads the image to Cloudinary and updates the user’s avatar URL
+in the database.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>file (UploadFile): Image file uploaded by the user.
+db (Session): Database session dependency.
+admin_user (User): Currently authenticated admin user.</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Updated avatar URL.</p>
+</dd>
+<dt>Raises:</dt><dd><p>HTTPException: 403 Forbidden if user is not an admin.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-app.routes.contacts">
+<span id="contacts-routes"></span><h3>Contacts routes<a class="headerlink" href="#module-app.routes.contacts" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routes.contacts.create_contact">
+<span class="sig-prename descclassname"><span class="pre">app.routes.contacts.</span></span><span class="sig-name descname"><span class="pre">create_contact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.schemas.ContactSchema" title="app.schemas.ContactSchema"><span class="pre">ContactSchema</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.models_user.User" title="app.models_user.User"><span class="pre">User</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_user)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.routes.contacts.create_contact" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new contact for the authenticated user.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>body (ContactSchema): Data required to create a contact.
+db (Session): Database session dependency.
+current_user (User): Currently authenticated user.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Contact: The created contact object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routes.contacts.delete_contact">
+<span class="sig-prename descclassname"><span class="pre">app.routes.contacts.</span></span><span class="sig-name descname"><span class="pre">delete_contact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contact_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.models_user.User" title="app.models_user.User"><span class="pre">User</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_user)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.routes.contacts.delete_contact" title="Link to this definition">¶</a></dt>
+<dd><p>Delete a contact by ID.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>contact_id (int): ID of the contact to delete.
+db (Session): Database session dependency.
+current_user (User): Currently authenticated user.</p>
+</dd>
+<dt>Raises:</dt><dd><p>HTTPException: 404 if contact is not found.</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: Confirmation message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routes.contacts.get_contact">
+<span class="sig-prename descclassname"><span class="pre">app.routes.contacts.</span></span><span class="sig-name descname"><span class="pre">get_contact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contact_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.models_user.User" title="app.models_user.User"><span class="pre">User</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_user)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.routes.contacts.get_contact" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a specific contact by ID.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>contact_id (int): ID of the contact.
+db (Session): Database session dependency.
+current_user (User): Currently authenticated user.</p>
+</dd>
+<dt>Raises:</dt><dd><p>HTTPException: 404 if contact is not found.</p>
+</dd>
+<dt>Returns:</dt><dd><p>ContactResponse: The requested contact.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routes.contacts.get_contacts">
+<span class="sig-prename descclassname"><span class="pre">app.routes.contacts.</span></span><span class="sig-name descname"><span class="pre">get_contacts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.models_user.User" title="app.models_user.User"><span class="pre">User</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_user)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.routes.contacts.get_contacts" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve all contacts for the authenticated user.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>db (Session): Database session dependency.
+current_user (User): Currently authenticated user.</p>
+</dd>
+<dt>Returns:</dt><dd><p>list[Contact]: List of user contacts.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routes.contacts.upcoming_birthdays">
+<span class="sig-prename descclassname"><span class="pre">app.routes.contacts.</span></span><span class="sig-name descname"><span class="pre">upcoming_birthdays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.models_user.User" title="app.models_user.User"><span class="pre">User</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_user)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.routes.contacts.upcoming_birthdays" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve contacts with upcoming birthdays.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>db (Session): Database session dependency.
+current_user (User): Currently authenticated user.</p>
+</dd>
+<dt>Returns:</dt><dd><p>list[ContactResponse]: Contacts with upcoming birthdays.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.routes.contacts.update_contact">
+<span class="sig-prename descclassname"><span class="pre">app.routes.contacts.</span></span><span class="sig-name descname"><span class="pre">update_contact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contact_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contact_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.schemas.ContactCreate" title="app.schemas.ContactCreate"><span class="pre">ContactCreate</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.models_user.User" title="app.models_user.User"><span class="pre">User</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_user)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.routes.contacts.update_contact" title="Link to this definition">¶</a></dt>
+<dd><p>Update an existing contact.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>contact_id (int): ID of the contact to update.
+contact_data (ContactCreate): Updated contact data.
+db (Session): Database session dependency.
+current_user (User): Currently authenticated user.</p>
+</dd>
+<dt>Raises:</dt><dd><p>HTTPException: 404 if contact is not found.</p>
+</dd>
+<dt>Returns:</dt><dd><p>ContactResponse: Updated contact object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="core-modules">
+<h2>Core modules<a class="headerlink" href="#core-modules" title="Link to this heading">¶</a></h2>
+<section id="module-app.auth">
+<span id="authentication"></span><h3>Authentication<a class="headerlink" href="#module-app.auth" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.auth.create_access_token">
+<span class="sig-prename descclassname"><span class="pre">app.auth.</span></span><span class="sig-name descname"><span class="pre">create_access_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.auth.create_access_token" title="Link to this definition">¶</a></dt>
+<dd><p>Create a JWT access token with expiration time.</p>
+<p>Adds an expiration claim (‘exp’) to the token payload and encodes it
+using the configured secret key and algorithm.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>data (dict): Data to encode inside the token (e.g. user email).</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: Encoded JWT access token.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.auth.get_password_hash">
+<span class="sig-prename descclassname"><span class="pre">app.auth.</span></span><span class="sig-name descname"><span class="pre">get_password_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.auth.get_password_hash" title="Link to this definition">¶</a></dt>
+<dd><p>Hash a plain password using bcrypt algorithm.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>password (str): Plain text password.</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: Hashed password.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.auth.verify_password">
+<span class="sig-prename descclassname"><span class="pre">app.auth.</span></span><span class="sig-name descname"><span class="pre">verify_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plain_password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashed_password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.auth.verify_password" title="Link to this definition">¶</a></dt>
+<dd><p>Verify a plain password against a hashed password.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>plain_password (str): The password provided by the user.
+hashed_password (str): The hashed password stored in the database.</p>
+</dd>
+<dt>Returns:</dt><dd><p>bool: True if the password matches, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-app.auth_bearer">
+<span id="auth-bearer"></span><h3>Auth bearer<a class="headerlink" href="#module-app.auth_bearer" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.auth_bearer.get_admin_user">
+<span class="sig-prename descclassname"><span class="pre">app.auth_bearer.</span></span><span class="sig-name descname"><span class="pre">get_admin_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.models_user.User" title="app.models_user.User"><span class="pre">User</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_user)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#app.models_user.User" title="app.models_user.User"><span class="pre">User</span></a></span></span><a class="headerlink" href="#app.auth_bearer.get_admin_user" title="Link to this definition">¶</a></dt>
+<dd><p>Get current user and verify they have admin role.</p>
+<dl class="simple">
+<dt>Raises:</dt><dd><p>HTTPException: 403 Forbidden if user is not an admin.</p>
+</dd>
+<dt>Returns:</dt><dd><p>User: The authenticated admin user.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.auth_bearer.get_current_user">
+<span class="sig-prename descclassname"><span class="pre">app.auth_bearer.</span></span><span class="sig-name descname"><span class="pre">get_current_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(OAuth2PasswordBearer)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.auth_bearer.get_current_user" title="Link to this definition">¶</a></dt>
+<dd><p>Get current authenticated user using JWT + Redis cache + DB fallback.</p>
+</dd></dl>
+
+</section>
+<section id="module-app.database">
+<span id="database"></span><h3>Database<a class="headerlink" href="#module-app.database" title="Link to this heading">¶</a></h3>
+<p>Database configuration module.</p>
+<p>This module initializes the SQLAlchemy engine, session factory,
+and base class for ORM models. It also provides a dependency
+for database session management in FastAPI.</p>
+<dl class="simple">
+<dt>Environment Variables:</dt><dd><p>DATABASE_URL (str): Database connection URL.</p>
+</dd>
+<dt>Example:</dt><dd><p>postgresql://user:password&#64;localhost:5432/dbname</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.database.get_db">
+<span class="sig-prename descclassname"><span class="pre">app.database.</span></span><span class="sig-name descname"><span class="pre">get_db</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.database.get_db" title="Link to this definition">¶</a></dt>
+<dd><p>Dependency that provides a database session.</p>
+<p>This function is used with FastAPI’s Depends system.
+It creates a new database session for each request and
+ensures it is properly closed after use.</p>
+<dl class="simple">
+<dt>Yields:</dt><dd><p>Session: SQLAlchemy database session.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-app.crud">
+<span id="crud"></span><h3>CRUD<a class="headerlink" href="#module-app.crud" title="Link to this heading">¶</a></h3>
+<p>CRUD operations for contacts and users.</p>
+<p>This module provides database operations for creating, reading, updating,
+and deleting contacts and user data. All functions follow a consistent pattern
+of accepting a database session and returning the result or None if not found.</p>
+<dl class="simple">
+<dt>Functions:</dt><dd><p>create_contact: Create a new contact for a user.
+get_contacts: Retrieve all contacts for a user with optional filters.
+get_contact_by_id: Get a specific contact by ID.
+update_contact: Update contact information.
+delete_contact: Delete a contact.
+get_upcoming_birthdays: Get contacts with birthdays in the next 7 days.
+get_user_by_email: Retrieve user by email address.
+get_user_by_id: Retrieve user by ID.</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.create_contact">
+<span class="sig-prename descclassname"><span class="pre">app.crud.</span></span><span class="sig-name descname"><span class="pre">create_contact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contact</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.create_contact" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new contact for a specific user.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>db (Session): SQLAlchemy database session.
+contact: Pydantic schema containing contact data.
+user_id (int): ID of the user who owns the contact.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Contact: The created contact object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.delete_contact">
+<span class="sig-prename descclassname"><span class="pre">app.crud.</span></span><span class="sig-name descname"><span class="pre">delete_contact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contact_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.delete_contact" title="Link to this definition">¶</a></dt>
+<dd><p>Delete a contact by ID.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>db (Session): Database session.
+contact_id (int): Contact ID.
+user_id (int): Owner of contact.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Contact | None: Deleted contact or None if not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.get_contact_by_id">
+<span class="sig-prename descclassname"><span class="pre">app.crud.</span></span><span class="sig-name descname"><span class="pre">get_contact_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contact_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.get_contact_by_id" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a single contact by ID for a specific user.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>db (Session): Database session.
+contact_id (int): Contact ID.
+user_id (int): Owner of contact.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Contact | None: Contact object if found, otherwise None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.get_contacts">
+<span class="sig-prename descclassname"><span class="pre">app.crud.</span></span><span class="sig-name descname"><span class="pre">get_contacts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.get_contacts" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve all contacts for a user with optional filtering.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>db (Session): Database session.
+user_id (int): Owner of contacts.
+first_name (str, optional): Filter by first name.
+last_name (str, optional): Filter by last name.
+email (str, optional): Filter by email.</p>
+</dd>
+<dt>Returns:</dt><dd><p>list[Contact]: List of matching contacts.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.get_upcoming_birthdays">
+<span class="sig-prename descclassname"><span class="pre">app.crud.</span></span><span class="sig-name descname"><span class="pre">get_upcoming_birthdays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.get_upcoming_birthdays" title="Link to this definition">¶</a></dt>
+<dd><p>Get contacts with upcoming birthdays in the next 7 days.</p>
+<p>This function calculates which contacts have birthdays within the next 7 days,
+accounting for year changes (e.g., birthday in January for a contact with
+December birthday).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>db (Session): Database session.
+user_id (int): Owner of contacts.</p>
+</dd>
+<dt>Returns:</dt><dd><p>list[Contact]: Contacts with upcoming birthdays.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.get_user_by_email">
+<span class="sig-prename descclassname"><span class="pre">app.crud.</span></span><span class="sig-name descname"><span class="pre">get_user_by_email</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.get_user_by_email" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a user by email address.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>db (Session): Database session.
+email (str): Email address to search for.</p>
+</dd>
+<dt>Returns:</dt><dd><p>User | None: User object if found, otherwise None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.get_user_by_id">
+<span class="sig-prename descclassname"><span class="pre">app.crud.</span></span><span class="sig-name descname"><span class="pre">get_user_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.get_user_by_id" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a user by ID.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>db (Session): Database session.
+user_id (int): User ID to search for.</p>
+</dd>
+<dt>Returns:</dt><dd><p>User | None: User object if found, otherwise None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.crud.update_contact">
+<span class="sig-prename descclassname"><span class="pre">app.crud.</span></span><span class="sig-name descname"><span class="pre">update_contact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contact_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.crud.update_contact" title="Link to this definition">¶</a></dt>
+<dd><p>Update an existing contact.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>db (Session): Database session.
+contact_id (int): ID of contact to update.
+data: Pydantic schema with updated fields.
+user_id (int): Owner of contact (for security).</p>
+</dd>
+<dt>Returns:</dt><dd><p>Contact | None: Updated contact or None if not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="services">
+<h3>Services<a class="headerlink" href="#services" title="Link to this heading">¶</a></h3>
+<section id="module-app.email_service">
+<span id="email-service"></span><h4>Email service<a class="headerlink" href="#module-app.email_service" title="Link to this heading">¶</a></h4>
+<p>Email service module.</p>
+<p>This module handles email verification functionality using FastAPI-Mail
+and itsdangerous serializer. It provides token generation, validation,
+and sending verification emails.</p>
+<dl class="simple">
+<dt>Environment Variables:</dt><dd><p>MAIL_USERNAME (str): SMTP username.
+MAIL_PASSWORD (str): SMTP password.
+MAIL_FROM (str): Sender email address.
+MAIL_PORT (int): SMTP port.
+MAIL_SERVER (str): SMTP server host.
+SECRET_KEY (str): Secret key used for token generation.</p>
+</dd>
+<dt>Security:</dt><dd><ul class="simple">
+<li><p>Email tokens are signed using URLSafeTimedSerializer.</p></li>
+<li><p>Tokens expire after 1 hour.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.email_service.confirm_email_token">
+<span class="sig-prename descclassname"><span class="pre">app.email_service.</span></span><span class="sig-name descname"><span class="pre">confirm_email_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#app.email_service.confirm_email_token" title="Link to this definition">¶</a></dt>
+<dd><p>Validate and decode an email verification token.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>token (str): Verification token.</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: Email extracted from token.</p>
+</dd>
+<dt>Raises:</dt><dd><p>BadSignature or SignatureExpired: If token is invalid or expired.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.email_service.create_email_token">
+<span class="sig-prename descclassname"><span class="pre">app.email_service.</span></span><span class="sig-name descname"><span class="pre">create_email_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#app.email_service.create_email_token" title="Link to this definition">¶</a></dt>
+<dd><p>Generate a secure email verification token.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>email (str): User email address.</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: Signed token containing the email.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.email_service.send_reset_email">
+<span class="sig-prename descclassname"><span class="pre">app.email_service.</span></span><span class="sig-name descname"><span class="pre">send_reset_email</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.email_service.send_reset_email" title="Link to this definition">¶</a></dt>
+<dd><p>Send password reset email to the user.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>email (str): Recipient email address.
+token (str): Password reset token generated by the system.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+<dt>Raises:</dt><dd><p>smtplib.SMTPException: If email sending fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.email_service.send_verification_email">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.email_service.</span></span><span class="sig-name descname"><span class="pre">send_verification_email</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.email_service.send_verification_email" title="Link to this definition">¶</a></dt>
+<dd><p>Send email verification message to the user.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>email (str): Recipient email address.
+host (str): Base URL of the application.
+token (str): Email verification token.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-app.cloudinary_service">
+<span id="cloudinary-service"></span><h4>Cloudinary service<a class="headerlink" href="#module-app.cloudinary_service" title="Link to this heading">¶</a></h4>
+<p>Cloudinary configuration module.</p>
+<p>This module loads environment variables from a .env file and configures
+Cloudinary for image upload and management services.</p>
+<dl class="simple">
+<dt>Environment Variables Required:</dt><dd><p>CLOUDINARY_NAME (str): Cloudinary cloud name.
+CLOUDINARY_API_KEY (str): API key for Cloudinary.
+CLOUDINARY_API_SECRET (str): API secret for Cloudinary.</p>
+</dd>
+<dt>Notes:</dt><dd><ul class="simple">
+<li><p>Uses python-dotenv to load environment variables.</p></li>
+<li><p>Secure mode is enabled for HTTPS requests.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+<section id="models">
+<h2>Models<a class="headerlink" href="#models" title="Link to this heading">¶</a></h2>
+<section id="module-app.models_user">
+<span id="user-models"></span><h3>User models<a class="headerlink" href="#module-app.models_user" title="Link to this heading">¶</a></h3>
+<p>User database model.</p>
+<p>This module defines the User ORM model used by SQLAlchemy.
+It represents application users and stores authentication and profile data.</p>
+<dl class="simple">
+<dt>Table:</dt><dd><p>users</p>
+</dd>
+<dt>Fields:</dt><dd><p>id (int): Primary key identifier.
+email (str): Unique user email address.
+username (str): Unique username.
+hashed_password (str): Securely hashed password.
+verified (bool): Email verification status.
+avatar (str | None): URL of user avatar image.
+role (str): User role (‘user’ or ‘admin’). Default is ‘user’.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.models_user.User">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.models_user.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.models_user.User" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></p>
+<p>User model representing application users.</p>
+<p>This model is used for authentication, authorization,
+and storing user profile information.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models_user.User.avatar">
+<span class="sig-name descname"><span class="pre">avatar</span></span><a class="headerlink" href="#app.models_user.User.avatar" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models_user.User.email">
+<span class="sig-name descname"><span class="pre">email</span></span><a class="headerlink" href="#app.models_user.User.email" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models_user.User.hashed_password">
+<span class="sig-name descname"><span class="pre">hashed_password</span></span><a class="headerlink" href="#app.models_user.User.hashed_password" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models_user.User.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#app.models_user.User.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models_user.User.role">
+<span class="sig-name descname"><span class="pre">role</span></span><a class="headerlink" href="#app.models_user.User.role" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models_user.User.username">
+<span class="sig-name descname"><span class="pre">username</span></span><a class="headerlink" href="#app.models_user.User.username" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models_user.User.verified">
+<span class="sig-name descname"><span class="pre">verified</span></span><a class="headerlink" href="#app.models_user.User.verified" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-app.models">
+<span id="base-models"></span><h3>Base models<a class="headerlink" href="#module-app.models" title="Link to this heading">¶</a></h3>
+<p>Contact database model.</p>
+<p>This module defines the Contact ORM model used by SQLAlchemy.
+It represents user-owned contacts stored in the application.</p>
+<dl class="simple">
+<dt>Table:</dt><dd><p>contacts</p>
+</dd>
+<dt>Relationships:</dt><dd><ul class="simple">
+<li><p>Many-to-one relationship with User (owner of contacts)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.models.Contact">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.models.</span></span><span class="sig-name descname"><span class="pre">Contact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.models.Contact" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></p>
+<p>Contact model representing a user’s contact entry.</p>
+<p>Each contact belongs to a specific user and stores personal
+information such as name, email, phone, and birthday.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.Contact.additional_data">
+<span class="sig-name descname"><span class="pre">additional_data</span></span><a class="headerlink" href="#app.models.Contact.additional_data" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.Contact.birthday">
+<span class="sig-name descname"><span class="pre">birthday</span></span><a class="headerlink" href="#app.models.Contact.birthday" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.Contact.email">
+<span class="sig-name descname"><span class="pre">email</span></span><a class="headerlink" href="#app.models.Contact.email" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.Contact.first_name">
+<span class="sig-name descname"><span class="pre">first_name</span></span><a class="headerlink" href="#app.models.Contact.first_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.Contact.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#app.models.Contact.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.Contact.last_name">
+<span class="sig-name descname"><span class="pre">last_name</span></span><a class="headerlink" href="#app.models.Contact.last_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.Contact.owner">
+<span class="sig-name descname"><span class="pre">owner</span></span><a class="headerlink" href="#app.models.Contact.owner" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.Contact.phone">
+<span class="sig-name descname"><span class="pre">phone</span></span><a class="headerlink" href="#app.models.Contact.phone" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.models.Contact.user_id">
+<span class="sig-name descname"><span class="pre">user_id</span></span><a class="headerlink" href="#app.models.Contact.user_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="schemas">
+<h2>Schemas<a class="headerlink" href="#schemas" title="Link to this heading">¶</a></h2>
+<section id="module-app.schemas_user">
+<span id="user-schemas"></span><h3>User schemas<a class="headerlink" href="#module-app.schemas_user" title="Link to this heading">¶</a></h3>
+<p>User Pydantic schemas.</p>
+<p>This module defines request and response schemas for User-related operations.
+These schemas are used for data validation and serialization in FastAPI.</p>
+<dl class="simple">
+<dt>Schemas:</dt><dd><p>UserCreate: Used for user registration.
+UserResponse: Used for returning user data in API responses.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.schemas_user.UserCreate">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.schemas_user.</span></span><span class="sig-name descname"><span class="pre">UserCreate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">EmailStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.schemas_user.UserCreate" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Schema for creating a new user.</p>
+<p>Used during registration to validate incoming user data.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>email (EmailStr): Valid user email address.
+username (str): Unique username.
+password (str): Plain text password (will be hashed before storage).</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas_user.UserCreate.email">
+<span class="sig-name descname"><span class="pre">email</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">EmailStr</span></span><a class="headerlink" href="#app.schemas_user.UserCreate.email" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas_user.UserCreate.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#app.schemas_user.UserCreate.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas_user.UserCreate.password">
+<span class="sig-name descname"><span class="pre">password</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#app.schemas_user.UserCreate.password" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas_user.UserCreate.username">
+<span class="sig-name descname"><span class="pre">username</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#app.schemas_user.UserCreate.username" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.schemas_user.UserResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.schemas_user.</span></span><span class="sig-name descname"><span class="pre">UserResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">EmailStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">avatar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'user'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.schemas_user.UserResponse" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Schema for returning user data in API responses.</p>
+<p>Used to expose safe user information to clients.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>id (int): User ID.
+email (EmailStr): User email address.
+username (str): Username.
+avatar (str | None): URL to user avatar image.
+role (str): User role (‘user’ or ‘admin’).</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.schemas_user.UserResponse.Config">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#app.schemas_user.UserResponse.Config" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Pydantic configuration.</p>
+<p>Enables ORM mode (from_attributes) so SQLAlchemy models
+can be converted directly into Pydantic schemas.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas_user.UserResponse.Config.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'from_attributes':</span> <span class="pre">True}</span></span><a class="headerlink" href="#app.schemas_user.UserResponse.Config.model_config" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas_user.UserResponse.avatar">
+<span class="sig-name descname"><span class="pre">avatar</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#app.schemas_user.UserResponse.avatar" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas_user.UserResponse.email">
+<span class="sig-name descname"><span class="pre">email</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">EmailStr</span></span><a class="headerlink" href="#app.schemas_user.UserResponse.email" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas_user.UserResponse.id">
+<span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#app.schemas_user.UserResponse.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas_user.UserResponse.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'model_config':</span> <span class="pre">{'from_attributes':</span> <span class="pre">True}}</span></span><a class="headerlink" href="#app.schemas_user.UserResponse.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas_user.UserResponse.role">
+<span class="sig-name descname"><span class="pre">role</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#app.schemas_user.UserResponse.role" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas_user.UserResponse.username">
+<span class="sig-name descname"><span class="pre">username</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#app.schemas_user.UserResponse.username" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-app.schemas">
+<span id="base-schemas"></span><h3>Base schemas<a class="headerlink" href="#module-app.schemas" title="Link to this heading">¶</a></h3>
+<p>Contact Pydantic schemas.</p>
+<p>This module defines request and response schemas for Contact operations.
+These schemas are used for validation, serialization, and API contracts
+in the FastAPI application.</p>
+<dl class="simple">
+<dt>Schemas:</dt><dd><p>ContactSchema: Base schema for contact data.
+ContactCreate: Schema used when creating a contact.
+ContactResponse: Schema used when returning contact data.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.schemas.ContactCreate">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.schemas.</span></span><span class="sig-name descname"><span class="pre">ContactCreate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">10</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">birthday</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.schemas.ContactCreate" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.schemas.ContactSchema" title="app.schemas.ContactSchema"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContactSchema</span></code></a></p>
+<p>Schema for creating a new contact.</p>
+<p>Inherits all fields from ContactSchema.
+Used for POST /contacts endpoint.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas.ContactCreate.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#app.schemas.ContactCreate.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.schemas.ContactResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.schemas.</span></span><span class="sig-name descname"><span class="pre">ContactResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">10</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">birthday</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.schemas.ContactResponse" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.schemas.ContactSchema" title="app.schemas.ContactSchema"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContactSchema</span></code></a></p>
+<p>Schema for returning contact data in API responses.</p>
+<p>Includes database-generated fields such as ID.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>id (int): Unique identifier of the contact.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.schemas.ContactResponse.Config">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#app.schemas.ContactResponse.Config" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Pydantic configuration.</p>
+<p>Enables ORM mode so SQLAlchemy models can be
+converted directly into Pydantic schemas.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas.ContactResponse.Config.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'from_attributes':</span> <span class="pre">True}</span></span><a class="headerlink" href="#app.schemas.ContactResponse.Config.model_config" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas.ContactResponse.id">
+<span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#app.schemas.ContactResponse.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas.ContactResponse.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'model_config':</span> <span class="pre">{'from_attributes':</span> <span class="pre">True}}</span></span><a class="headerlink" href="#app.schemas.ContactResponse.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.schemas.ContactSchema">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.schemas.</span></span><span class="sig-name descname"><span class="pre">ContactSchema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">10</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">birthday</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.schemas.ContactSchema" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Base schema for contact data.</p>
+<p>This schema defines the common fields used for creating and
+validating contact information.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>first_name (str): First name of the contact.
+last_name (str): Last name of the contact.
+email (str): Email address of the contact.
+phone (str): Phone number.
+birthday (str): Birthday date in string format.
+additional_data (str): Extra information about the contact.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas.ContactSchema.additional_data">
+<span class="sig-name descname"><span class="pre">additional_data</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#app.schemas.ContactSchema.additional_data" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas.ContactSchema.birthday">
+<span class="sig-name descname"><span class="pre">birthday</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">date</span></span><a class="headerlink" href="#app.schemas.ContactSchema.birthday" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas.ContactSchema.email">
+<span class="sig-name descname"><span class="pre">email</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#app.schemas.ContactSchema.email" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas.ContactSchema.first_name">
+<span class="sig-name descname"><span class="pre">first_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#app.schemas.ContactSchema.first_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas.ContactSchema.last_name">
+<span class="sig-name descname"><span class="pre">last_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#app.schemas.ContactSchema.last_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas.ContactSchema.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#app.schemas.ContactSchema.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas.ContactSchema.phone">
+<span class="sig-name descname"><span class="pre">phone</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#app.schemas.ContactSchema.phone" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.schemas.ResetPasswordRequest">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.schemas.</span></span><span class="sig-name descname"><span class="pre">ResetPasswordRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.schemas.ResetPasswordRequest" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas.ResetPasswordRequest.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#app.schemas.ResetPasswordRequest.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas.ResetPasswordRequest.new_password">
+<span class="sig-name descname"><span class="pre">new_password</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#app.schemas.ResetPasswordRequest.new_password" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.schemas.ResetPasswordRequest.token">
+<span class="sig-name descname"><span class="pre">token</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#app.schemas.ResetPasswordRequest.token" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Application modules</a><ul>
+<li><a class="reference internal" href="#module-app.main">Main application</a><ul>
+<li><a class="reference internal" href="#app.main.init_db"><code class="docutils literal notranslate"><span class="pre">init_db()</span></code></a></li>
+<li><a class="reference internal" href="#app.main.lifespan"><code class="docutils literal notranslate"><span class="pre">lifespan()</span></code></a></li>
+<li><a class="reference internal" href="#app.main.root"><code class="docutils literal notranslate"><span class="pre">root()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#routes">Routes</a><ul>
+<li><a class="reference internal" href="#module-app.routes.auth">Auth routes</a><ul>
+<li><a class="reference internal" href="#app.routes.auth.login"><code class="docutils literal notranslate"><span class="pre">login()</span></code></a></li>
+<li><a class="reference internal" href="#app.routes.auth.register"><code class="docutils literal notranslate"><span class="pre">register()</span></code></a></li>
+<li><a class="reference internal" href="#app.routes.auth.request_password_reset"><code class="docutils literal notranslate"><span class="pre">request_password_reset()</span></code></a></li>
+<li><a class="reference internal" href="#app.routes.auth.reset_password"><code class="docutils literal notranslate"><span class="pre">reset_password()</span></code></a></li>
+<li><a class="reference internal" href="#app.routes.auth.verify_email"><code class="docutils literal notranslate"><span class="pre">verify_email()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.routes.users">Users routes</a><ul>
+<li><a class="reference internal" href="#app.routes.users.me"><code class="docutils literal notranslate"><span class="pre">me()</span></code></a></li>
+<li><a class="reference internal" href="#app.routes.users.update_avatar"><code class="docutils literal notranslate"><span class="pre">update_avatar()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.routes.contacts">Contacts routes</a><ul>
+<li><a class="reference internal" href="#app.routes.contacts.create_contact"><code class="docutils literal notranslate"><span class="pre">create_contact()</span></code></a></li>
+<li><a class="reference internal" href="#app.routes.contacts.delete_contact"><code class="docutils literal notranslate"><span class="pre">delete_contact()</span></code></a></li>
+<li><a class="reference internal" href="#app.routes.contacts.get_contact"><code class="docutils literal notranslate"><span class="pre">get_contact()</span></code></a></li>
+<li><a class="reference internal" href="#app.routes.contacts.get_contacts"><code class="docutils literal notranslate"><span class="pre">get_contacts()</span></code></a></li>
+<li><a class="reference internal" href="#app.routes.contacts.upcoming_birthdays"><code class="docutils literal notranslate"><span class="pre">upcoming_birthdays()</span></code></a></li>
+<li><a class="reference internal" href="#app.routes.contacts.update_contact"><code class="docutils literal notranslate"><span class="pre">update_contact()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#core-modules">Core modules</a><ul>
+<li><a class="reference internal" href="#module-app.auth">Authentication</a><ul>
+<li><a class="reference internal" href="#app.auth.create_access_token"><code class="docutils literal notranslate"><span class="pre">create_access_token()</span></code></a></li>
+<li><a class="reference internal" href="#app.auth.get_password_hash"><code class="docutils literal notranslate"><span class="pre">get_password_hash()</span></code></a></li>
+<li><a class="reference internal" href="#app.auth.verify_password"><code class="docutils literal notranslate"><span class="pre">verify_password()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.auth_bearer">Auth bearer</a><ul>
+<li><a class="reference internal" href="#app.auth_bearer.get_admin_user"><code class="docutils literal notranslate"><span class="pre">get_admin_user()</span></code></a></li>
+<li><a class="reference internal" href="#app.auth_bearer.get_current_user"><code class="docutils literal notranslate"><span class="pre">get_current_user()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.database">Database</a><ul>
+<li><a class="reference internal" href="#app.database.get_db"><code class="docutils literal notranslate"><span class="pre">get_db()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.crud">CRUD</a><ul>
+<li><a class="reference internal" href="#app.crud.create_contact"><code class="docutils literal notranslate"><span class="pre">create_contact()</span></code></a></li>
+<li><a class="reference internal" href="#app.crud.delete_contact"><code class="docutils literal notranslate"><span class="pre">delete_contact()</span></code></a></li>
+<li><a class="reference internal" href="#app.crud.get_contact_by_id"><code class="docutils literal notranslate"><span class="pre">get_contact_by_id()</span></code></a></li>
+<li><a class="reference internal" href="#app.crud.get_contacts"><code class="docutils literal notranslate"><span class="pre">get_contacts()</span></code></a></li>
+<li><a class="reference internal" href="#app.crud.get_upcoming_birthdays"><code class="docutils literal notranslate"><span class="pre">get_upcoming_birthdays()</span></code></a></li>
+<li><a class="reference internal" href="#app.crud.get_user_by_email"><code class="docutils literal notranslate"><span class="pre">get_user_by_email()</span></code></a></li>
+<li><a class="reference internal" href="#app.crud.get_user_by_id"><code class="docutils literal notranslate"><span class="pre">get_user_by_id()</span></code></a></li>
+<li><a class="reference internal" href="#app.crud.update_contact"><code class="docutils literal notranslate"><span class="pre">update_contact()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#services">Services</a><ul>
+<li><a class="reference internal" href="#module-app.email_service">Email service</a><ul>
+<li><a class="reference internal" href="#app.email_service.confirm_email_token"><code class="docutils literal notranslate"><span class="pre">confirm_email_token()</span></code></a></li>
+<li><a class="reference internal" href="#app.email_service.create_email_token"><code class="docutils literal notranslate"><span class="pre">create_email_token()</span></code></a></li>
+<li><a class="reference internal" href="#app.email_service.send_reset_email"><code class="docutils literal notranslate"><span class="pre">send_reset_email()</span></code></a></li>
+<li><a class="reference internal" href="#app.email_service.send_verification_email"><code class="docutils literal notranslate"><span class="pre">send_verification_email()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.cloudinary_service">Cloudinary service</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#models">Models</a><ul>
+<li><a class="reference internal" href="#module-app.models_user">User models</a><ul>
+<li><a class="reference internal" href="#app.models_user.User"><code class="docutils literal notranslate"><span class="pre">User</span></code></a><ul>
+<li><a class="reference internal" href="#app.models_user.User.avatar"><code class="docutils literal notranslate"><span class="pre">User.avatar</span></code></a></li>
+<li><a class="reference internal" href="#app.models_user.User.email"><code class="docutils literal notranslate"><span class="pre">User.email</span></code></a></li>
+<li><a class="reference internal" href="#app.models_user.User.hashed_password"><code class="docutils literal notranslate"><span class="pre">User.hashed_password</span></code></a></li>
+<li><a class="reference internal" href="#app.models_user.User.id"><code class="docutils literal notranslate"><span class="pre">User.id</span></code></a></li>
+<li><a class="reference internal" href="#app.models_user.User.role"><code class="docutils literal notranslate"><span class="pre">User.role</span></code></a></li>
+<li><a class="reference internal" href="#app.models_user.User.username"><code class="docutils literal notranslate"><span class="pre">User.username</span></code></a></li>
+<li><a class="reference internal" href="#app.models_user.User.verified"><code class="docutils literal notranslate"><span class="pre">User.verified</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.models">Base models</a><ul>
+<li><a class="reference internal" href="#app.models.Contact"><code class="docutils literal notranslate"><span class="pre">Contact</span></code></a><ul>
+<li><a class="reference internal" href="#app.models.Contact.additional_data"><code class="docutils literal notranslate"><span class="pre">Contact.additional_data</span></code></a></li>
+<li><a class="reference internal" href="#app.models.Contact.birthday"><code class="docutils literal notranslate"><span class="pre">Contact.birthday</span></code></a></li>
+<li><a class="reference internal" href="#app.models.Contact.email"><code class="docutils literal notranslate"><span class="pre">Contact.email</span></code></a></li>
+<li><a class="reference internal" href="#app.models.Contact.first_name"><code class="docutils literal notranslate"><span class="pre">Contact.first_name</span></code></a></li>
+<li><a class="reference internal" href="#app.models.Contact.id"><code class="docutils literal notranslate"><span class="pre">Contact.id</span></code></a></li>
+<li><a class="reference internal" href="#app.models.Contact.last_name"><code class="docutils literal notranslate"><span class="pre">Contact.last_name</span></code></a></li>
+<li><a class="reference internal" href="#app.models.Contact.owner"><code class="docutils literal notranslate"><span class="pre">Contact.owner</span></code></a></li>
+<li><a class="reference internal" href="#app.models.Contact.phone"><code class="docutils literal notranslate"><span class="pre">Contact.phone</span></code></a></li>
+<li><a class="reference internal" href="#app.models.Contact.user_id"><code class="docutils literal notranslate"><span class="pre">Contact.user_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schemas">Schemas</a><ul>
+<li><a class="reference internal" href="#module-app.schemas_user">User schemas</a><ul>
+<li><a class="reference internal" href="#app.schemas_user.UserCreate"><code class="docutils literal notranslate"><span class="pre">UserCreate</span></code></a><ul>
+<li><a class="reference internal" href="#app.schemas_user.UserCreate.email"><code class="docutils literal notranslate"><span class="pre">UserCreate.email</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas_user.UserCreate.model_config"><code class="docutils literal notranslate"><span class="pre">UserCreate.model_config</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas_user.UserCreate.password"><code class="docutils literal notranslate"><span class="pre">UserCreate.password</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas_user.UserCreate.username"><code class="docutils literal notranslate"><span class="pre">UserCreate.username</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.schemas_user.UserResponse"><code class="docutils literal notranslate"><span class="pre">UserResponse</span></code></a><ul>
+<li><a class="reference internal" href="#app.schemas_user.UserResponse.Config"><code class="docutils literal notranslate"><span class="pre">UserResponse.Config</span></code></a><ul>
+<li><a class="reference internal" href="#app.schemas_user.UserResponse.Config.model_config"><code class="docutils literal notranslate"><span class="pre">UserResponse.Config.model_config</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.schemas_user.UserResponse.avatar"><code class="docutils literal notranslate"><span class="pre">UserResponse.avatar</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas_user.UserResponse.email"><code class="docutils literal notranslate"><span class="pre">UserResponse.email</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas_user.UserResponse.id"><code class="docutils literal notranslate"><span class="pre">UserResponse.id</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas_user.UserResponse.model_config"><code class="docutils literal notranslate"><span class="pre">UserResponse.model_config</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas_user.UserResponse.role"><code class="docutils literal notranslate"><span class="pre">UserResponse.role</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas_user.UserResponse.username"><code class="docutils literal notranslate"><span class="pre">UserResponse.username</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.schemas">Base schemas</a><ul>
+<li><a class="reference internal" href="#app.schemas.ContactCreate"><code class="docutils literal notranslate"><span class="pre">ContactCreate</span></code></a><ul>
+<li><a class="reference internal" href="#app.schemas.ContactCreate.model_config"><code class="docutils literal notranslate"><span class="pre">ContactCreate.model_config</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.schemas.ContactResponse"><code class="docutils literal notranslate"><span class="pre">ContactResponse</span></code></a><ul>
+<li><a class="reference internal" href="#app.schemas.ContactResponse.Config"><code class="docutils literal notranslate"><span class="pre">ContactResponse.Config</span></code></a><ul>
+<li><a class="reference internal" href="#app.schemas.ContactResponse.Config.model_config"><code class="docutils literal notranslate"><span class="pre">ContactResponse.Config.model_config</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.schemas.ContactResponse.id"><code class="docutils literal notranslate"><span class="pre">ContactResponse.id</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas.ContactResponse.model_config"><code class="docutils literal notranslate"><span class="pre">ContactResponse.model_config</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.schemas.ContactSchema"><code class="docutils literal notranslate"><span class="pre">ContactSchema</span></code></a><ul>
+<li><a class="reference internal" href="#app.schemas.ContactSchema.additional_data"><code class="docutils literal notranslate"><span class="pre">ContactSchema.additional_data</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas.ContactSchema.birthday"><code class="docutils literal notranslate"><span class="pre">ContactSchema.birthday</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas.ContactSchema.email"><code class="docutils literal notranslate"><span class="pre">ContactSchema.email</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas.ContactSchema.first_name"><code class="docutils literal notranslate"><span class="pre">ContactSchema.first_name</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas.ContactSchema.last_name"><code class="docutils literal notranslate"><span class="pre">ContactSchema.last_name</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas.ContactSchema.model_config"><code class="docutils literal notranslate"><span class="pre">ContactSchema.model_config</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas.ContactSchema.phone"><code class="docutils literal notranslate"><span class="pre">ContactSchema.phone</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.schemas.ResetPasswordRequest"><code class="docutils literal notranslate"><span class="pre">ResetPasswordRequest</span></code></a><ul>
+<li><a class="reference internal" href="#app.schemas.ResetPasswordRequest.model_config"><code class="docutils literal notranslate"><span class="pre">ResetPasswordRequest.model_config</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas.ResetPasswordRequest.new_password"><code class="docutils literal notranslate"><span class="pre">ResetPasswordRequest.new_password</span></code></a></li>
+<li><a class="reference internal" href="#app.schemas.ResetPasswordRequest.token"><code class="docutils literal notranslate"><span class="pre">ResetPasswordRequest.token</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">Contacts API Documentation</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/modules.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Contacts API Documentation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Rest API  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Application modules</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Oleh Fedorchuk.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>
