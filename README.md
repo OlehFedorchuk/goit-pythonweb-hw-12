@@ -1,130 +1,104 @@
-# 📦 FastAPI Contacts API
+# FastAPI Contacts REST API
 
-REST API для управління контактами з JWT авторизацією, верифікацією email та завантаженням аватарів через Cloudinary.
+## Опис проєкту
 
----
+**FastAPI Contacts REST API** — це REST API застосунок для управління контактами користувачів з повною системою автентифікації, авторизації, документацією, тестуванням, Redis-кешуванням, механізмом скидання пароля та підтримкою ролей користувачів.
 
-## 🚀 Features
-
-- 🔐 JWT Authentication (register / login)
-- 📧 Email verification (Gmail SMTP)
-- 👤 User profile (`/users/me`)
-- 📇 Contacts CRUD API
-- 🖼️ Avatar upload via Cloudinary
-- 🐘 PostgreSQL database
-- 🐳 Docker + Docker Compose
-- 🌐 CORS enabled
+Проєкт реалізовано на основі **FastAPI**, **SQLAlchemy**, **PostgreSQL**, **Redis**, **JWT**, **Pytest** та **Sphinx**.
 
 ---
 
-## 🧱 Tech Stack
+## Статус проєкту
 
+**Status:** Complete  
+**Date:** May 16, 2026  
+**Tests:** 26/26 Passed  
+**Coverage:** 76%  
+**Documentation:** Sphinx HTML documentation generated successfully
+
+---
+
+## Основні можливості
+
+- Реєстрація користувача
+- Авторизація користувача
+- JWT Access Token
+- JWT Refresh Token
+- Token rotation при оновленні токенів
+- Logout з інвалідацією refresh token
+- Email verification
+- Password reset через Redis token
+- CRUD для контактів
+- Ізоляція контактів між користувачами
+- Ролі користувачів: `user` та `admin`
+- Admin-only avatar upload
+- Redis-кешування користувачів
+- Sphinx-документація
+- Unit та integration tests
+- Покриття тестами понад 75%
+
+---
+
+## Технології
+
+- Python 3.13.2
 - FastAPI
-- PostgreSQL
+- Uvicorn
 - SQLAlchemy
+- PostgreSQL
+- Redis
 - Alembic
-- JWT (python-jose)
-- Passlib (bcrypt)
+- Pydantic
+- JWT / python-jose
+- Passlib / bcrypt
+- Pytest
+- Pytest-cov
+- Sphinx
+- Poetry
 - Cloudinary
-- Docker
 
 ---
 
-## 📁 Project Structure
+## Структура проєкту
 
-bash
-
-```
+```text
 .
-├── Dockerfile
-├── docker-compose.yml
+├── app/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── auth.py
+│   ├── auth_bearer.py
+│   ├── crud.py
+│   ├── database.py
+│   ├── email_service.py
+│   ├── redis.py
+│   ├── models.py
+│   ├── models_user.py
+│   ├── schemas.py
+│   ├── schemas_user.py
+│   └── routes/
+│       ├── __init__.py
+│       ├── auth.py
+│       ├── contacts.py
+│       └── users.py
+│
+├── tests/
+│   ├── conftest.py
+│   ├── test_auth.py
+│   ├── test_contacts.py
+│   ├── test_users.py
+│   └── test_unit_crud.py
+│
+├── docs/
+│   ├── conf.py
+│   ├── index.rst
+│   ├── modules.rst
+│   └── _build/
+│       └── html/
+│
+├── alembic/
 ├── pyproject.toml
+├── poetry.lock
 ├── README.md
-└── app
-    ├── main.py
-    ├── database.py
-    ├── crud.py
-    ├── auth.py
-    ├── auth_bearer.py
-    ├── email_service.py
-    ├── cloudinary_service.py
-    ├── models.py
-    ├── models_user.py
-    ├── schemas.py
-    ├── schemas_user.py
-    └── routes
-        ├── auth.py
-        ├── users.py
-        └── contacts.py
-```
-
-## ⚙️ Environment Variables
-
-bash
-
-```
-Create .env file:
-
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=your_password
-POSTGRES_DB=postgres
-DATABASE_URL=postgresql://postgres:password@db:5432/postgres
-
-SECRET_KEY=your_super_secret_key
-ALGORITHM=HS256
-
-MAIL_USERNAME=your_email@gmail.com
-MAIL_PASSWORD=your_google_app_password
-MAIL_FROM=your_email@gmail.com
-MAIL_SERVER=smtp.gmail.com
-MAIL_PORT=587
-
-CLOUDINARY_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-
-```
-
-## 🐳 Run with Docker
-
-bash
-
-```
-docker-compose up --build
-```
-
-bash
-
-```
-docker-compose down
-```
-
-## 🔐 Authentication Flow
-
-bash
-
-```
-POST /auth/register
-POST /auth/login
-
-GET /users/me
-PATCH /users/avatar
-
-GET /contacts/
-POST /contacts/
-GET /contacts/{id}
-PUT /contacts/{id}
-DELETE /contacts/{id}
-```
-
-## 📧 Email Verification
-
-```
-Register → email → verify → activate account
-```
-
-## ☁️ Cloudinary
-
-```
-Used for avatar uploads
+└── .env
 ```
