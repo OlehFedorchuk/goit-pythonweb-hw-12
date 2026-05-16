@@ -149,8 +149,6 @@ CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 ```
 
-> У production середовищі не зберігай `.env` у відкритому репозиторії.
-
 ---
 
 ## Запуск застосунку
